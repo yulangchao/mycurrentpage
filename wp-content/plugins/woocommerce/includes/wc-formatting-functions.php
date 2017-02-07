@@ -423,10 +423,11 @@ function wc_price( $price, $args = array() ) {
 	}
 
 	$formatted_price = ( $negative ? '-' : '' ) . sprintf( $price_format, '<span class="woocommerce-Price-currencySymbol">' . get_woocommerce_currency_symbol( $currency ) . '</span>', $price );
-        $rmb=$price*6;
-        $rmb1 = ( $negative ? '-' : '' ) . sprintf( $price_format, '<span class="woocommerce-Price-currencySymbol">' . get_woocommerce_currency_symbol( $currency ) . '</span>', $rmb );
+        $rmb=$price/6.8;
+        $rmb=number_format((float)$rmb, 2, '.', '');
+        $rmb1 = ( $negative ? '-' : '' ) . sprintf( $price_format, '<span class="woocommerce-Price-currencySymbol"></span>', $rmb );
 
-	$return          = '<span class="woocommerce-Price-amount amount">' . $formatted_price . '</span>';
+	$return          = '<span class="woocommerce-Price-amount amount">' . $formatted_price .'</span>';
 
 	if ( $ex_tax_label && wc_tax_enabled() ) {
 		$return .= ' <small class="woocommerce-Price-taxLabel tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
