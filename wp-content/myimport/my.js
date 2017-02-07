@@ -37,7 +37,7 @@ function calculate(count1,count2){
        money+=list[i];		  
 	}
 	var total=count2-count1;
-	return  "The total division is "+total+" , and the total fee is $"+ money+", ¥"+ money*6.8+ "! <br>If pay by US dollar, please use the paypal: 346443922@qq.com.";
+	return  "The total division is "+total+" , and the total fee is $"+ money+", ¥"+ Math.round(money*6.8)+ "! <br>拍 "+Math.round(money*6.8/20) +" items for boosting.<br><br>If pay by US dollar, please use the paypal: 346443922@qq.com.";
 	
 	
 	
