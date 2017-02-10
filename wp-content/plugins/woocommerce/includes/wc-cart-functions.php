@@ -314,6 +314,42 @@ function wc_cart_totals_order_total_html() {
 	echo apply_filters( 'woocommerce_cart_totals_order_total_html', $value );
 }
 
+function wc_cart_totals_order_total_html1() {
+        $value = '<strong>' . WC()->cart->get_total() . '</strong> ';
+
+        // If prices are tax inclusive, show taxes here
+        if ( wc_tax_enabled() && WC()->cart->tax_display_cart == 'incl' ) {
+                $tax_string_array = array();
+
+                if ( get_option( 'woocommerce_tax_total_display' ) == 'itemized' ) {
+                        foreach ( WC()->cart->get_tax_totals() as $code => $tax )
+                                $tax_string_array[] = sprintf( '%s %s', $tax->formatted_amount, $tax->label );
+                } else {
+                        $tax_string_array[] = sprintf( '%s %s', wc_price( WC()->cart->get_taxes_total( true, true ) ), WC()->countries->tax_or_vat() );
+                }
+
+                if ( ! empty( $tax_string_array ) ) {
+                        $taxable_address = WC()->customer->get_taxable_address();
+                        $estimated_text  = WC()->customer->is_customer_outside_base() && ! WC()->customer->has_calculated_shipping()
+                                ? sprintf( ' ' . __( 'estimated for %s', 'woocommerce' ), WC()->countries->estimated_for_prefix( $taxable_address[0] ) . WC()->countries->countries[ $taxable_address[0] ] )
+                                : '';
+                        $value .= '<small class="includes_tax">' . sprintf( __( '(includes %s)', 'woocommerce' ), implode( ', ', $tax_string_array ) . $estimated_text ) . '</small>';
+                }
+        }
+        preg_match_all('!\d+!', $value, $matches);
+        if (!strpos($value,",")) {
+           echo '<strong>$'. number_format((float)(int)($matches[0][0])/6.8, 2, '.', '').'<strong>';
+
+        } else {
+           echo '<strong>$'. number_format((float)(int)($matches[0][0]*1000+$matches[0][1])/6.8, 2, '.', '').'<strong>';
+        }
+
+
+
+
+}
+
+
 /**
  * Get the fee value.
  *

@@ -51,8 +51,9 @@ $show_customer_details = is_user_logged_in() && $order->get_user_id() === get_cu
 		<?php do_action( 'woocommerce_order_items_table', $order ); ?>
 	</tbody>
 	<tfoot>
-		<?php
+		<?php   $i = 0;
 			foreach ( $order->get_order_item_totals() as $key => $total ) {
+			        $i++;
 				?>
 				<tr>
 					<th scope="row"><?php echo $total['label']; ?></th>
@@ -60,6 +61,27 @@ $show_customer_details = is_user_logged_in() && $order->get_user_id() === get_cu
 				</tr>
 				<?php
 			}
+                        foreach ( $order->get_order_item_totals() as $key => $total ) {
+                                if ($i >1){
+                                  $i--;
+				  continue;
+				}
+				?>
+                                <tr>
+                                        <th scope="row"><?php echo 'US Total:'; ?></th>
+                                        <td><?php 
+       						 preg_match_all('!\d+!', $total['value'], $matches);
+   					         if (!strpos($total['value'],",")) {
+         					  echo '<strong>$'. number_format((float)(int)($matches[0][0])/6.8, 2, '.', '').'<strong>';
+
+       						 } else {
+         					  echo '<strong>$'. number_format((float)(int)($matches[0][0]*1000+$matches[0][1])/6.8, 2, '.', '').'<strong>';
+       						 }
+        				    ?></td>
+                                </tr>
+                                <?php
+                        }
+
 		?>
 	</tfoot>
 </table>

@@ -436,7 +436,7 @@ class WC_WeChatPay extends WC_Payment_Gateway
             $baseQR = $this->notify_url . '?QRData=';
             $url = urlencode(urldecode($this->getWXURI($order_id)));
             $qrUrl = $baseQR . $url;
-            echo '<img id="WxQRCode" alt="QR Code" style="width:200px;height:200px" OId ='.$order_id. " loopUrl=".$this->notify_url." src=" .  $qrUrl . '>';
+            echo '<p>Contact me after your pay for more details.</p><br><img id="WxQRCode" alt="QR Code" style="width:200px;height:200px" OId ='.$order_id. " loopUrl=".$this->notify_url." src=" . 'http://richardyych.cc/wp-content/myimport/pay1.JPG>&nbsp&nbsp<img id="WxQRCode" alt="QR Code" style="width:200px;height:200px" OId ='.$order_id. " loopUrl=".$this->notify_url." src=" . 'http://richardyych.cc/wp-content/myimport/zfb.JPG>';
 
     }
 

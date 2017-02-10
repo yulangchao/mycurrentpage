@@ -93,6 +93,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<td data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>"><?php wc_cart_totals_order_total_html(); ?></td>
 		</tr>
 
+                <tr class="order-total">
+                        <th>US Total</th>
+                        <td><?php wc_cart_totals_order_total_html1(); ?></td>
+                </tr>
+
 		<?php do_action( 'woocommerce_cart_totals_after_order_total' ); ?>
 
 	</table>
